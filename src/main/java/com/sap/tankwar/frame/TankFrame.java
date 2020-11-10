@@ -30,8 +30,8 @@ public class TankFrame extends Frame {
         this.addKeyListener(new TankKeyListener(mainTank));
 
         //初始化敌方坦克
-        for (int i = 0; i < 5; i++) {
-            enemyTanks.add(new Tank(50 + i * 200, 200, Direction.DOWN, Camp.RED, true, this));
+        for (int i = 0; i < 10; i++) {
+            enemyTanks.add(new Tank(50 + i * 100, 200, Direction.DOWN, Camp.RED, true, this));
         }
     }
 
@@ -60,6 +60,34 @@ public class TankFrame extends Frame {
         //打印战场信息
         paintInfo(g);
 
+        //坦克子弹碰撞检查,不同阵营子弹坦克碰撞爆炸
+        for (int i = 0; i < bullets.size(); i++) {
+            for (int j = 0; j < enemyTanks.size(); j++) {
+                bullets.get(i).colliedWith(enemyTanks.get(j));
+            }
+        }
+
+        //敌方坦克碰撞检查，碰到调头
+        for (int i = 0; i < enemyTanks.size(); i++) {
+            for (int j = 0; j < enemyTanks.size(); j++) {
+                if (enemyTanks.get(i) == enemyTanks.get(j)) continue;
+                enemyTanks.get(i).colliedWith(enemyTanks.get(j));
+            }
+        }
+
+        //主战坦克与敌方坦克碰撞检测，碰到死亡
+        for (int i = 0; i < enemyTanks.size(); i++) {
+            mainTank.colliedWith(enemyTanks.get(i));
+        }
+
+        //子弹碰撞检查,碰到抵消
+        for (int i = 0; i < bullets.size(); i++) {
+            for (int j = 0; j < bullets.size(); j++) {
+                if (bullets.get(i) == bullets.get(j)) continue;
+                bullets.get(i).colliedWith(bullets.get(j));
+            }
+        }
+
         //打印主战坦克
         mainTank.paint(g);
 
@@ -77,12 +105,6 @@ public class TankFrame extends Frame {
         //打印爆炸效果
         for (int i = 0; i < explodes.size(); i++) {
             explodes.get(i).paint(g);
-        }
-
-        for (int i = 0; i < bullets.size(); i++) {
-            for (int j = 0; j < enemyTanks.size(); j++) {
-                bullets.get(i).colliedWith(enemyTanks.get(j));
-            }
         }
 
 

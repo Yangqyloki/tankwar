@@ -11,16 +11,19 @@ public class Bullet {
 
     public static final int BULLET_WIDTH = ImageManager.bulletD.getWidth();
     public static final int BULLET_HEIGHT = ImageManager.bulletD.getHeight();
-    private static final int SPEED = 15;
+    private static final int SPEED = 10;
 
 
     private int x, y;
     private Direction direction;
     private TankFrame tankFrame;
     private Camp camp;
+    //碰撞检查矩形
+    private Rectangle rectangle;
 
 
     private boolean living = true;
+
 
     public Bullet(final int x, final int y, final Direction direction, Camp camp, final TankFrame tankFrame) {
         this.x = x;
@@ -28,6 +31,7 @@ public class Bullet {
         this.direction = direction;
         this.tankFrame = tankFrame;
         this.camp = camp;
+        rectangle = new Rectangle(x, y, BULLET_WIDTH, BULLET_HEIGHT);
     }
 
 
@@ -78,8 +82,31 @@ public class Bullet {
                 break;
         }
 
+        this.rectangle.x = x;
+        this.rectangle.y = y;
+
         if (x < 0 || y < 0 || x > tankFrame.getWidth() || y > tankFrame.getHeight()) {
             this.living = false;
+        }
+    }
+
+    /**
+     * 子弹坦克碰撞检查
+     */
+    public void colliedWith(final Tank tank) {
+        if (this.camp != tank.getCamp() && this.rectangle.intersects(tank.getRectangle())) {
+            this.die();
+            tank.die();
+        }
+    }
+
+    /**
+     * 子弹子弹碰撞检查
+     */
+    public void colliedWith(final Bullet bullet) {
+        if (this.rectangle.intersects(bullet.getRectangle())) {
+            this.die();
+            bullet.die();
         }
     }
 
@@ -87,23 +114,11 @@ public class Bullet {
         this.living = false;
     }
 
-    public void colliedWith(final Tank tank) {
-        if (this.camp == tank.getCamp()) return;
-        //用矩形类辅助判断坦克和子弹是否相撞
-        Rectangle bulletRect = new Rectangle(this.x, this.y, BULLET_WIDTH, BULLET_HEIGHT);
-        Rectangle tankRect = new Rectangle(tank.getX(), tank.getY(), Tank.TANK_WIDTH, Tank.TANK_WIDTH);
-
-        if (bulletRect.intersects(tankRect)) {
-            tank.die();
-            this.die();
-
-            //计算爆炸位置
-            int ex = tank.getX() + Tank.TANK_WIDTH / 2 - Explode.EXPLODE_WIDTH / 2;
-            int ey = tank.getY() + Tank.TANK_HEIGHT / 2 - Explode.EXPLODE_HEIGHT / 2;
-            Explode explode = new Explode(ex, ey, this.tankFrame);
-            this.tankFrame.getExplodes().add(explode);
-        }
+    public Camp getCamp() {
+        return camp;
     }
 
-
+    public Rectangle getRectangle() {
+        return rectangle;
+    }
 }

@@ -12,13 +12,15 @@ import java.util.Random;
 public class Tank {
     public static final int TANK_WIDTH = ImageManager.redTankD.getWidth();
     public static final int TANK_HEIGHT = ImageManager.redTankD.getHeight();
-    private static final int SPEED = 5;
+    private static final int SPEED = 3;
 
     private int x, y;
     private Direction direction;
     private TankFrame tankFrame;
     private Random random = new Random();
     private Camp camp;
+    //碰撞检查矩形
+    private Rectangle rectangle;
 
     private boolean moving;
     private boolean living = true;
@@ -31,6 +33,7 @@ public class Tank {
         this.tankFrame = tankFrame;
         this.camp = camp;
         this.moving = moving;
+        rectangle = new Rectangle(x, y, TANK_WIDTH, TANK_HEIGHT);
     }
 
 
@@ -44,20 +47,23 @@ public class Tank {
      * 绘制自己
      */
     private void paintTank(final Graphics g) {
-        if (!living && tankFrame.getEnemyTanks().contains(this)) tankFrame.getEnemyTanks().remove(this);
-        switch (direction) {
-            case UP:
-                g.drawImage(this.camp == Camp.RED ? ImageManager.redTankU : ImageManager.blueTankU, x, y, null);
-                break;
-            case LEFT:
-                g.drawImage(this.camp == Camp.RED ? ImageManager.redTankL : ImageManager.blueTankL, x, y, null);
-                break;
-            case DOWN:
-                g.drawImage(this.camp == Camp.RED ? ImageManager.redTankD : ImageManager.blueTankD, x, y, null);
-                break;
-            case RIGHT:
-                g.drawImage(this.camp == Camp.RED ? ImageManager.redTankR : ImageManager.blueTankR, x, y, null);
-                break;
+        if (!living) {
+            if (tankFrame.getEnemyTanks().contains(this)) tankFrame.getEnemyTanks().remove(this);
+        } else {
+            switch (direction) {
+                case UP:
+                    g.drawImage(this.camp == Camp.RED ? ImageManager.redTankU : ImageManager.blueTankU, x, y, null);
+                    break;
+                case LEFT:
+                    g.drawImage(this.camp == Camp.RED ? ImageManager.redTankL : ImageManager.blueTankL, x, y, null);
+                    break;
+                case DOWN:
+                    g.drawImage(this.camp == Camp.RED ? ImageManager.redTankD : ImageManager.blueTankD, x, y, null);
+                    break;
+                case RIGHT:
+                    g.drawImage(this.camp == Camp.RED ? ImageManager.redTankR : ImageManager.blueTankR, x, y, null);
+                    break;
+            }
         }
 
     }
@@ -84,6 +90,9 @@ public class Tank {
             default:
                 break;
         }
+
+        this.rectangle.x = x;
+        this.rectangle.y = y;
 
         //敌方坦克开火,移动，转向
         if (camp == Camp.RED) {
@@ -119,6 +128,31 @@ public class Tank {
      */
     public void die() {
         this.living = false;
+        //计算爆炸位置
+        int ex = this.x + Tank.TANK_WIDTH / 2 - Explode.EXPLODE_WIDTH / 2;
+        int ey = this.y + Tank.TANK_HEIGHT / 2 - Explode.EXPLODE_HEIGHT / 2;
+        Explode explode = new Explode(ex, ey, this.tankFrame);
+        this.tankFrame.getExplodes().add(explode);
+    }
+
+    /**
+     * 坦克坦克碰撞检查
+     */
+    public void colliedWith(Tank tank) {
+        if (this.camp == tank.camp) {
+            if (this.rectangle.intersects(tank.rectangle)) {
+                this.reverse();
+                tank.reverse();
+            }
+        } else {
+            if (this.rectangle.intersects(tank.rectangle)) {
+                //主战坦克无敌开关
+                //this.die();
+                tank.die();
+            }
+        }
+
+
     }
 
     /**
@@ -135,20 +169,23 @@ public class Tank {
     private void boundsCheck() {
         if (this.x < 0) {
             this.x = 0;
-            reverse();
+            this.reverse();
         }
         if (this.y < 30) {
             this.y = 30;
-            reverse();
+            this.reverse();
         }
         if (this.x + TANK_WIDTH > TankFrame.GAME_WIDTH) {
             this.x = TankFrame.GAME_WIDTH - TANK_WIDTH;
-            reverse();
+            this.reverse();
         }
         if (this.y + TANK_HEIGHT > TankFrame.GAME_HEIGHT) {
             this.y = TankFrame.GAME_HEIGHT - TANK_HEIGHT;
-            reverse();
+            this.reverse();
         }
+
+        this.rectangle.x = x;
+        this.rectangle.y = y;
     }
 
     /**
@@ -158,19 +195,25 @@ public class Tank {
         switch (direction) {
             case UP:
                 this.direction = Direction.DOWN;
+                this.y += SPEED;
                 break;
             case LEFT:
                 this.direction = Direction.RIGHT;
+                this.x += SPEED;
                 break;
             case DOWN:
                 this.direction = Direction.UP;
+                this.y -= SPEED;
                 break;
             case RIGHT:
                 this.direction = Direction.LEFT;
+                this.x -= SPEED;
                 break;
             default:
                 break;
         }
+        this.rectangle.x = x;
+        this.rectangle.y = y;
     }
 
     public void setDirection(final Direction direction) {
@@ -181,15 +224,11 @@ public class Tank {
         this.moving = moving;
     }
 
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
     public Camp getCamp() {
         return camp;
+    }
+
+    public Rectangle getRectangle() {
+        return rectangle;
     }
 }
