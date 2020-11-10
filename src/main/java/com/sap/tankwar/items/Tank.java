@@ -12,7 +12,7 @@ import java.util.Random;
 public class Tank {
     public static final int TANK_WIDTH = ImageManager.redTankD.getWidth();
     public static final int TANK_HEIGHT = ImageManager.redTankD.getHeight();
-    private static final int SPEED = 1;
+    private static final int SPEED = 5;
 
     private int x, y;
     private Direction direction;
@@ -85,9 +85,15 @@ public class Tank {
                 break;
         }
 
-        //敌方坦克开火
-        if (camp == Camp.RED && random.nextInt(10) > 8) this.fire();
+        //敌方坦克开火,移动，转向
+        if (camp == Camp.RED) {
+            if (random.nextInt(100) > 95) {
+                fire();
+                randomDir();
+            }
+        }
 
+        boundsCheck();
         //主坦克移动音效
 //        if (this.camp == Camp.BLUE) new Thread(() -> new AudioManager("audio/tank_move.wav").play()).start();
     }
@@ -113,6 +119,58 @@ public class Tank {
      */
     public void die() {
         this.living = false;
+    }
+
+    /**
+     * 随机转向
+     */
+    private void randomDir() {
+        this.direction = Direction.values()[random.nextInt(4)];
+    }
+
+
+    /**
+     * 墙体碰撞检查
+     */
+    private void boundsCheck() {
+        if (this.x < 0) {
+            this.x = 0;
+            reverse();
+        }
+        if (this.y < 30) {
+            this.y = 30;
+            reverse();
+        }
+        if (this.x + TANK_WIDTH > TankFrame.GAME_WIDTH) {
+            this.x = TankFrame.GAME_WIDTH - TANK_WIDTH;
+            reverse();
+        }
+        if (this.y + TANK_HEIGHT > TankFrame.GAME_HEIGHT) {
+            this.y = TankFrame.GAME_HEIGHT - TANK_HEIGHT;
+            reverse();
+        }
+    }
+
+    /**
+     * 坦克调头
+     */
+    private void reverse() {
+        switch (direction) {
+            case UP:
+                this.direction = Direction.DOWN;
+                break;
+            case LEFT:
+                this.direction = Direction.RIGHT;
+                break;
+            case DOWN:
+                this.direction = Direction.UP;
+                break;
+            case RIGHT:
+                this.direction = Direction.LEFT;
+                break;
+            default:
+                break;
+        }
     }
 
     public void setDirection(final Direction direction) {

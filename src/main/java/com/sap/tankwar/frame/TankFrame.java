@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TankFrame extends Frame {
-    private static final int GAME_WIDTH = 1024, GAME_HEIGHT = 768;
+    public static final int GAME_WIDTH = 1024, GAME_HEIGHT = 768;
     private Image offScreenImage = null;
     private Tank mainTank = new Tank(500, 600, Direction.DOWN, Camp.BLUE, false, this);
 

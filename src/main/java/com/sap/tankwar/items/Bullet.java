@@ -96,7 +96,11 @@ public class Bullet {
         if (bulletRect.intersects(tankRect)) {
             tank.die();
             this.die();
-            Explode explode = new Explode(tank.getX(), tank.getY(), this.tankFrame);
+
+            //计算爆炸位置
+            int ex = tank.getX() + Tank.TANK_WIDTH / 2 - Explode.EXPLODE_WIDTH / 2;
+            int ey = tank.getY() + Tank.TANK_HEIGHT / 2 - Explode.EXPLODE_HEIGHT / 2;
+            Explode explode = new Explode(ex, ey, this.tankFrame);
             this.tankFrame.getExplodes().add(explode);
         }
     }

@@ -7,9 +7,8 @@ import com.sap.tankwar.manager.ImageManager;
 import java.awt.*;
 
 public class Explode {
-    public static final int BULLET_WIDTH = ImageManager.explodes[0].getWidth();
-    public static final int BULLET_HEIGHT = ImageManager.explodes[0].getHeight();
-    private static final int SPEED = 15;
+    public static final int EXPLODE_WIDTH = ImageManager.explodes[0].getWidth();
+    public static final int EXPLODE_HEIGHT = ImageManager.explodes[0].getHeight();
 
 
     private int x, y;
