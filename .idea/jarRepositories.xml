@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="RemoteRepositoriesConfiguration">
+    <remote-repository>
+      <option name="id" value="central" />
+      <option name="name" value="Central Repository" />
+      <option name="url" value="https://repo.maven.apache.org/maven2" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="sap-integration" />
+      <option name="name" value="sap-integration" />
+      <option name="url" value="https://repository.hybris.com/sap-integration" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="central" />
+      <option name="name" value="Maven Central repository" />
+      <option name="url" value="https://repo1.maven.org/maven2" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="commons-snapshot" />
+      <option name="name" value="commons-snapshot" />
+      <option name="url" value="https://repository.hybris.com/commons-snapshot" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="sap-integration-snapshot" />
+      <option name="name" value="sap-integration-snapshot" />
+      <option name="url" value="https://repository.hybris.com/sap-integration-snapshot" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="yaas-public-release" />
+      <option name="name" value="yaas-public-release" />
+      <option name="url" value="https://repository.hybris.com/yaas-public-release" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="hybris-public-release" />
+      <option name="name" value="hybris-public-release" />
+      <option name="url" value="https://repository.hybris.com/hybris-public-release/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="hybris-repository" />
+      <option name="name" value="hybris-repository" />
+      <option name="url" value="https://repository.hybris.com/hybris-repository/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="cockpitng-release" />
+      <option name="name" value="cockpitng-release" />
+      <option name="url" value="https://repository.hybris.com/cockpitng-release" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="cockpitng-snapshot" />
+      <option name="name" value="cockpitng-snapshot" />
+      <option name="url" value="https://repository.hybris.com/cockpitng-snapshot" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="yaas-release" />
+      <option name="name" value="yaas-release" />
+      <option name="url" value="https://repository.hybris.com/yaas-release" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="hybris-release" />
+      <option name="name" value="hybris-release" />
+      <option name="url" value="https://repository.hybris.com/hybris-release/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="sap-integration-release" />
+      <option name="name" value="sap-integration-release" />
+      <option name="url" value="https://repository.hybris.com/sap-integration-release" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="infrastructure" />
+      <option name="name" value="infrastructure" />
+      <option name="url" value="https://repository.hybris.com/infrastructure" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="hybris-snapshot" />
+      <option name="name" value="hybris-snapshot" />
+      <option name="url" value="https://repository.hybris.com/hybris-snapshot" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="jboss.community" />
+      <option name="name" value="JBoss Community repository" />
+      <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="yaas-snapshot" />
+      <option name="name" value="yaas-snapshot" />
+      <option name="url" value="https://repository.hybris.com/yaas-snapshot" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="build-snapshots-cx-commerce-maven" />
+      <option name="name" value="build-snapshots-cx-commerce-maven" />
+      <option name="url" value="https://common.repositories.sap.ondemand.com/artifactory/build-snapshots-cx-commerce-maven/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="dranura-snapshot" />
+      <option name="name" value="dranura-snapshot" />
+      <option name="url" value="https://repository.hybris.com/dranura-snapshot" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="dranura-release" />
+      <option name="name" value="dranura-release" />
+      <option name="url" value="https://repository.hybris.com/dranura-release" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="commons-release" />
+      <option name="name" value="commons-release" />
+      <option name="url" value="https://repository.hybris.com/commons-release" />
+    </remote-repository>
+  </component>
+</project>
