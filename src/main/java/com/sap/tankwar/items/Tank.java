@@ -5,6 +5,7 @@ import com.sap.tankwar.enumeration.Direction;
 import com.sap.tankwar.frame.TankFrame;
 import com.sap.tankwar.manager.AudioManager;
 import com.sap.tankwar.manager.ImageManager;
+import com.sap.tankwar.manager.PropertyManager;
 
 import java.awt.*;
 import java.util.List;
@@ -14,7 +15,7 @@ public class Tank
 {
 	public static final int TANK_WIDTH = ImageManager.redTankD.getWidth();
 	public static final int TANK_HEIGHT = ImageManager.redTankD.getHeight();
-	private static final int SPEED = 3;
+	private static final int SPEED = PropertyManager.getInt("tankSpeed");
 
 	private int x, y;
 	private Direction direction;

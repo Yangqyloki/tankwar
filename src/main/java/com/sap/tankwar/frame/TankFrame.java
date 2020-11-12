@@ -7,6 +7,7 @@ import com.sap.tankwar.items.Explode;
 import com.sap.tankwar.items.Tank;
 import com.sap.tankwar.listener.TankKeyListener;
 import com.sap.tankwar.listener.TankWindowListener;
+import com.sap.tankwar.manager.PropertyManager;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -15,8 +16,11 @@ import java.util.Random;
 
 public class TankFrame extends Frame
 {
-	public static final int GAME_WIDTH = 1024, GAME_HEIGHT = 768;
-	private Image offScreenImage = null;
+	public static final int GAME_WIDTH = PropertyManager.getInt("gameWidth");
+	public static final int GAME_HEIGHT = PropertyManager.getInt("gameHeight");
+	public static final int INIT_TANK_COUNT = PropertyManager.getInt("initTankCount");
+
+	private Image offScreenImage;
 	private Tank mainTank = new Tank(500, 600, Direction.DOWN, Camp.BLUE, false, this);
 
 	private List<Bullet> bullets = new ArrayList<>();
@@ -33,12 +37,12 @@ public class TankFrame extends Frame
 		this.addKeyListener(new TankKeyListener(mainTank));
 
 		//初始化主战坦克
-
 		tanks.add(mainTank);
+
 		//初始化敌方坦克
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < INIT_TANK_COUNT; i++)
 		{
-			tanks.add(new Tank(50 + i * 100, 200, Direction.values()[new Random().nextInt(4)], Camp.RED, true, this));
+			tanks.add(new Tank(50 + i * 120, 200, Direction.values()[new Random().nextInt(4)], Camp.RED, true, this));
 		}
 
 	}

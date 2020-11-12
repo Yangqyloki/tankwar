@@ -4,6 +4,7 @@ import com.sap.tankwar.enumeration.Camp;
 import com.sap.tankwar.enumeration.Direction;
 import com.sap.tankwar.frame.TankFrame;
 import com.sap.tankwar.manager.ImageManager;
+import com.sap.tankwar.manager.PropertyManager;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ public class Bullet
 
 	public static final int BULLET_WIDTH = ImageManager.bulletD.getWidth();
 	public static final int BULLET_HEIGHT = ImageManager.bulletD.getHeight();
-	private static final int SPEED = 10;
+	private static final int SPEED = PropertyManager.getInt("bulletSpeed");
 
 
 	private int x, y;
