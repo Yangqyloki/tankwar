@@ -31,4 +31,10 @@ public class PropertyManager
 		return Integer.parseInt((String) properties.get(key));
 	}
 
+	public static String getString(String key)
+	{
+		if (properties == null) return null;
+		return (String) properties.get(key);
+	}
+
 }

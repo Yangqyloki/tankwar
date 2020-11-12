@@ -31,7 +31,7 @@ public class TankFrame extends Frame
 	{
 		this.setVisible(true);
 		this.setResizable(false);
-		this.setTitle("Tank War by Qingyu");
+		this.setTitle(PropertyManager.getString("gameInfo"));
 		this.setSize(GAME_WIDTH, GAME_HEIGHT);
 		this.addWindowListener(new TankWindowListener());
 		this.addKeyListener(new TankKeyListener(mainTank));
