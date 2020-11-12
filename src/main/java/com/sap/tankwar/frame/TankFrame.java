@@ -20,7 +20,7 @@ public class TankFrame extends Frame
 	private Tank mainTank = new Tank(500, 600, Direction.DOWN, Camp.BLUE, false, this);
 
 	private List<Bullet> bullets = new ArrayList<>();
-	private List<Tank> enemyTanks = new ArrayList<>();
+	private List<Tank> tanks = new ArrayList<>();
 	private List<Explode> explodes = new ArrayList<>();
 
 	public TankFrame()
@@ -32,11 +32,15 @@ public class TankFrame extends Frame
 		this.addWindowListener(new TankWindowListener());
 		this.addKeyListener(new TankKeyListener(mainTank));
 
+		//初始化主战坦克
+
+		tanks.add(mainTank);
 		//初始化敌方坦克
 		for (int i = 0; i < 10; i++)
 		{
-			enemyTanks.add(new Tank(50 + i * 100, 200, Direction.values()[new Random().nextInt(4)], Camp.RED, true, this));
+			tanks.add(new Tank(50 + i * 100, 200, Direction.values()[new Random().nextInt(4)], Camp.RED, true, this));
 		}
+
 	}
 
 	/**
@@ -67,14 +71,11 @@ public class TankFrame extends Frame
 		//打印战场信息
 		paintInfo(g);
 
-		//打印主战坦克
-		mainTank.paint(g);
-
-		//打印敌方坦克
+		//打印所有坦克
 		//如果用for(Bullet b:bullets)等List迭代器循环，print方法里remove时会报错
-		for (int i = 0; i < enemyTanks.size(); i++)
+		for (int i = 0; i < tanks.size(); i++)
 		{
-			enemyTanks.get(i).paint(g);
+			tanks.get(i).paint(g);
 		}
 
 		//打印所有子弹
@@ -99,7 +100,7 @@ public class TankFrame extends Frame
 	{
 		Color color = g.getColor();
 		g.setColor(Color.WHITE);
-		g.drawString("敌人数量: " + enemyTanks.size(), 10, 60);
+		g.drawString("敌人数量: " + tanks.size(), 10, 60);
 		g.drawString("子弹数量: " + bullets.size(), 10, 80);
 		g.setColor(color);
 	}
@@ -109,9 +110,9 @@ public class TankFrame extends Frame
 		return bullets;
 	}
 
-	public List<Tank> getEnemyTanks()
+	public List<Tank> getTanks()
 	{
-		return enemyTanks;
+		return tanks;
 	}
 
 	public List<Explode> getExplodes()
@@ -119,8 +120,4 @@ public class TankFrame extends Frame
 		return explodes;
 	}
 
-	public Tank getMainTank()
-	{
-		return mainTank;
-	}
 }

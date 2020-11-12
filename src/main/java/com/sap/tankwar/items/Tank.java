@@ -54,7 +54,7 @@ public class Tank
 	{
 		if (!living)
 		{
-			if (tankFrame.getEnemyTanks().contains(this)) tankFrame.getEnemyTanks().remove(this);
+			if (tankFrame.getTanks().contains(this)) tankFrame.getTanks().remove(this);
 		}
 		else
 		{
@@ -231,7 +231,7 @@ public class Tank
 	 */
 	private void collisionCheck()
 	{
-		List<Tank> enemyTanks = tankFrame.getEnemyTanks();
+		List<Tank> enemyTanks = tankFrame.getTanks();
 		//敌方坦克碰撞检查，碰到调头
 		for (int i = 0; i < enemyTanks.size(); i++)
 		{

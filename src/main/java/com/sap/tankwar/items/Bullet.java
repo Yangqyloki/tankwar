@@ -110,8 +110,7 @@ public class Bullet
 
 		List<Bullet> bullets = tankFrame.getBullets();
 		List<Tank> tanks = new ArrayList<>();
-		tanks.addAll(tankFrame.getEnemyTanks());
-		tanks.add(tankFrame.getMainTank());
+		tanks.addAll(tankFrame.getTanks());
 
 		//坦克子弹碰撞检查,不同阵营子弹坦克碰撞爆炸
 		for (int i = 0; i < bullets.size(); i++)
